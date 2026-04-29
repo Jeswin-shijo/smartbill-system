@@ -1,0 +1,257 @@
+.app-shell {
+  display: grid;
+  gap: 24px;
+  padding: 32px;
+}
+
+.hero-panel,
+.panel,
+.stat-card {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  animation: rise-in 0.55s ease;
+}
+
+.hero-panel {
+  border-radius: 28px;
+  padding: 28px;
+  background:
+    radial-gradient(circle at top right, rgba(76, 145, 149, 0.18), transparent 32%),
+    linear-gradient(135deg, rgba(255, 245, 229, 0.9), rgba(246, 238, 227, 0.7));
+}
+
+.eyebrow-row,
+.hero-copy,
+.panel-heading,
+.bill-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(14, 35, 33, 0.08);
+  color: var(--accent-strong);
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(140, 63, 41, 0.12);
+  color: #8c3f29;
+  font-weight: 600;
+}
+
+.status-pill.is-ok {
+  background: rgba(44, 108, 75, 0.14);
+  color: #24593f;
+}
+
+.hero-copy {
+  margin-top: 28px;
+}
+
+.hero-kicker,
+.panel-kicker,
+.summary-label,
+.stat-label {
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.hero-text {
+  max-width: 56ch;
+}
+
+.hero-text code {
+  margin-left: 0.35rem;
+}
+
+.summary-card {
+  min-width: 250px;
+  padding: 20px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.64);
+  border: 1px solid rgba(14, 35, 33, 0.08);
+}
+
+.summary-card h2,
+.stat-card h2,
+.panel h2 {
+  margin: 0 0 8px;
+}
+
+.error-banner {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(140, 63, 41, 0.14);
+  color: #7e3722;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.stat-card,
+.panel {
+  border-radius: 24px;
+}
+
+.stat-card {
+  padding: 22px;
+}
+
+.stat-change,
+.panel-meta,
+.bill-id,
+.bill-date {
+  color: var(--muted);
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.9fr);
+  gap: 18px;
+}
+
+.panel {
+  padding: 24px;
+}
+
+.bill-list,
+.alert-list,
+.health-grid,
+.side-column {
+  display: grid;
+  gap: 14px;
+}
+
+.bill-row {
+  padding: 18px 0;
+  border-top: 1px solid var(--border);
+}
+
+.bill-row:first-of-type {
+  border-top: none;
+}
+
+.bill-client,
+.bill-amount {
+  margin: 0 0 6px;
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.bill-status {
+  align-self: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-due-soon,
+.status-sent,
+.status-draft,
+.status-overdue {
+  color: var(--accent-strong);
+  background: rgba(15, 96, 89, 0.12);
+}
+
+.status-overdue {
+  color: #8c3f29;
+  background: rgba(140, 63, 41, 0.12);
+}
+
+.health-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.health-grid div {
+  padding: 16px;
+  border-radius: 18px;
+  background: var(--soft);
+}
+
+.health-grid dt {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.health-grid dd {
+  margin: 0;
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.alert-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.alert-list li,
+.empty-state {
+  padding: 16px;
+  border-radius: 18px;
+  background: var(--soft);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 980px) {
+  .app-shell {
+    padding: 20px;
+  }
+
+  .hero-copy,
+  .eyebrow-row,
+  .panel-heading,
+  .bill-row {
+    flex-direction: column;
+  }
+
+  .summary-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .stats-grid,
+  .content-grid,
+  .health-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bill-status {
+    align-self: flex-start;
+  }
+}
