@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -42,6 +44,15 @@ app.use('/api/bills', billRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/items', itemRoutes);
 app.use('/api/profile', profileRoutes);
+
+const staticDir = process.env.STATIC_DIR || path.resolve(__dirname, '..', 'public');
+if (fs.existsSync(staticDir)) {
+  app.use(express.static(staticDir));
+  app.use((req, res, next) => {
+    if (req.method !== 'GET' || req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(staticDir, 'index.html'));
+  });
+}
 
 app.use(errorHandler);
 
