@@ -13,4 +13,4 @@ pnpm-debug.log*
 smartbill-frontend/node_modules/
 smartbill-frontend/dist/
 smartbill-backend/node_modules/
-
+.mysql-data/

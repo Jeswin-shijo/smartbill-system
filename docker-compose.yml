@@ -1,0 +1,62 @@
+services:
+  mariadb:
+    image: mariadb:11.4
+    container_name: smartbill-mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${MYSQL_DATABASE:-smartbill}
+      MARIADB_USER: ${MYSQL_USER:-smartbill_user}
+      MARIADB_PASSWORD: ${MYSQL_PASSWORD:-smartbill_password}
+      MARIADB_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+    ports:
+      - "${MYSQL_HOST_PORT:-3307}:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh --connect --innodb_initialized || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  backend:
+    build:
+      context: ./smartbill-backend
+    container_name: smartbill-backend
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    environment:
+      PORT: 4000
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_NAME: ${MYSQL_DATABASE:-smartbill}
+      DB_USER: ${MYSQL_USER:-smartbill_user}
+      DB_PASSWORD: ${MYSQL_PASSWORD:-smartbill_password}
+      JWT_SECRET: ${JWT_SECRET:-smartbill_dev_secret}
+      SEED_USER_EMAIL: ${SEED_USER_EMAIL:-owner@smartbill.app}
+      SEED_USER_PASSWORD: ${SEED_USER_PASSWORD:-SmartBill@123}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      RESET_CODE_EXPIRY_MINUTES: ${RESET_CODE_EXPIRY_MINUTES:-15}
+    ports:
+      - "${BACKEND_PORT:-4000}:4000"
+
+  frontend:
+    build:
+      context: ./smartbill-frontend
+    container_name: smartbill-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_started
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+
+volumes:
+  mariadb_data:
