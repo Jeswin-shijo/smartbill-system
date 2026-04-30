@@ -1,6 +1,7 @@
 import { getInitials } from '../lib/formatters'
 import { navigate, type Route, topNavGroup } from '../lib/router'
 import type { UserProfile } from '../types'
+import { BrandMark } from './BrandMark'
 
 type SidebarProps = {
   route: Route
@@ -26,7 +27,9 @@ export function Sidebar({ route, user, onLogout }: SidebarProps) {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <div className="sidebar-mark">SB</div>
+        <div className="sidebar-mark">
+          <BrandMark size={34} />
+        </div>
         <div>
           <div className="sidebar-brand-name">Smart Bill</div>
           <div className="sidebar-brand-tag">GST Billing</div>

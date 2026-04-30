@@ -1,5 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { ApiError, apiRequest } from '../lib/api'
+import { AuthShowcase } from './AuthShowcase'
+import { BrandMark } from './BrandMark'
 
 type ForgotPasswordScreenProps = {
   onBackToLogin: () => void
@@ -73,34 +75,27 @@ export function ForgotPasswordScreen({ onBackToLogin, onResetSuccess }: ForgotPa
 
   return (
     <div className="auth-shell">
-      <section className="auth-pane">
-        <div className="auth-brand">
-          <div className="auth-brand-mark">SB</div>
-          <span>Smart Bill</span>
-        </div>
-
-        <div className="auth-headline">
-          <h1>Reset your password.</h1>
-          <p>We'll email a 6-digit code to your registered address. Enter it on the next step along with your new password.</p>
-        </div>
-
-        <div className="auth-features">
-          <div className="auth-feature">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-            Codes expire in 15 minutes
-          </div>
-          <div className="auth-feature">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-            One active code per account
-          </div>
-          <div className="auth-feature">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-            Codes are securely hashed at rest
-          </div>
-        </div>
-      </section>
+      <AuthShowcase
+        badge="Account recovery"
+        title="Reset your password."
+        description="We'll email a 6-digit code to your registered address so you can securely get back into your workspace."
+        features={[
+          'Codes expire in 15 minutes',
+          'One active code per account',
+          'Codes are securely hashed at rest',
+        ]}
+        panelTitle="Recovery built into the same trusted workspace."
+        panelDescription="The flow stays simple for your team while keeping account access protected behind time-bound verification."
+      />
 
       <section className="auth-form-pane">
+        <div className="auth-form-brand">
+          <BrandMark size={42} />
+          <div>
+            <strong>Smart Bill</strong>
+            <span>GST billing, made faster</span>
+          </div>
+        </div>
         {step === 'request' ? (
           <form className="auth-form" onSubmit={handleRequestCode}>
             <div className="auth-form-header">

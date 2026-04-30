@@ -1,4 +1,6 @@
 import { useState, type FormEvent } from 'react'
+import { AuthShowcase } from './AuthShowcase'
+import { BrandMark } from './BrandMark'
 
 type LoginScreenProps = {
   isLoading: boolean
@@ -9,7 +11,7 @@ type LoginScreenProps = {
 
 export function LoginScreen({ isLoading, errorMessage, onLogin, onForgotPassword }: LoginScreenProps) {
   const [email, setEmail] = useState('owner@smartbill.app')
-  const [password, setPassword] = useState('SmartBill@123')
+  const [password, setPassword] = useState('Jeswin@123')
   const [showPassword, setShowPassword] = useState(false)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -19,34 +21,27 @@ export function LoginScreen({ isLoading, errorMessage, onLogin, onForgotPassword
 
   return (
     <div className="auth-shell">
-      <section className="auth-pane">
-        <div className="auth-brand">
-          <div className="auth-brand-mark">SB</div>
-          <span>Smart Bill</span>
-        </div>
-
-        <div className="auth-headline">
-          <h1>GST-ready billing for modern Indian businesses.</h1>
-          <p>Send invoices, manage customers, track payments and GST collections — all from a single workspace.</p>
-        </div>
-
-        <div className="auth-features">
-          <div className="auth-feature">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-            CGST / SGST / IGST split applied automatically
-          </div>
-          <div className="auth-feature">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-            HSN/SAC codes, line-item discounts, round-off
-          </div>
-          <div className="auth-feature">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-            Print-ready invoices with amount in words
-          </div>
-        </div>
-      </section>
+      <AuthShowcase
+        badge="Smart GST billing"
+        title="GST-ready billing for modern Indian businesses."
+        description="Send invoices, manage customers, track payments and GST collections from a single workspace that feels built for everyday operations."
+        features={[
+          'CGST / SGST / IGST split applied automatically',
+          'HSN/SAC codes, line-item discounts, and round-off',
+          'Print-ready invoices with amount in words',
+        ]}
+        panelTitle="Designed to keep billing moving."
+        panelDescription="A cleaner workflow for issuing invoices fast, staying tax-ready, and giving your business a more polished front door."
+      />
 
       <section className="auth-form-pane">
+        <div className="auth-form-brand">
+          <BrandMark size={42} />
+          <div>
+            <strong>Smart Bill</strong>
+            <span>GST billing, made faster</span>
+          </div>
+        </div>
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="auth-form-header">
             <h2>Welcome back</h2>
@@ -55,7 +50,7 @@ export function LoginScreen({ isLoading, errorMessage, onLogin, onForgotPassword
 
           <div className="demo-card">
             <strong>Demo workspace</strong>
-            <div>owner@smartbill.app · SmartBill@123</div>
+            <div>owner@smartbill.app · Jeswin@123</div>
           </div>
 
           <label className="field">
