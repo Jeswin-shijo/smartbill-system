@@ -10,8 +10,8 @@ type LoginScreenProps = {
 }
 
 export function LoginScreen({ isLoading, errorMessage, onLogin, onForgotPassword }: LoginScreenProps) {
-  const [email, setEmail] = useState('owner@smartbill.app')
-  const [password, setPassword] = useState('Jeswin@123')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -48,11 +48,6 @@ export function LoginScreen({ isLoading, errorMessage, onLogin, onForgotPassword
             <p>Sign in to your Smart Bill workspace.</p>
           </div>
 
-          <div className="demo-card">
-            <strong>Demo workspace</strong>
-            <div>owner@smartbill.app · Jeswin@123</div>
-          </div>
-
           <label className="field">
             <span className="field-label">Email</span>
             <input
@@ -60,7 +55,7 @@ export function LoginScreen({ isLoading, errorMessage, onLogin, onForgotPassword
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email"
+              autoComplete="off"
               required
             />
           </label>
@@ -82,7 +77,7 @@ export function LoginScreen({ isLoading, errorMessage, onLogin, onForgotPassword
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                autoComplete="current-password"
+                autoComplete="new-password"
                 required
                 style={{ paddingRight: 40 }}
               />
